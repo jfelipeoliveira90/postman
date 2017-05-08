@@ -1,31 +1,25 @@
 package org.jnosql.diana.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 import java.io.Serializable;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-@JsonAutoDetect(fieldVisibility = ANY)
 public final class Template implements Serializable {
     private static final long serialVersionUID = 4379203439231812358L;
 
-    private String token;
-    private String body;
-
-    Template() {
-
-    }
+    private final String token;
+    private final String layout;
 
     private Template(Builder builder) {
         this.token = builder.token;
-        this.body = builder.body;
+        this.layout = builder.layout;
     }
 
-    public String getBody() {
-        return body;
+    public String getLayout() {
+        return layout;
     }
 
     @Override
@@ -43,23 +37,23 @@ public final class Template implements Serializable {
 
     @Override
     public String toString() {
-        return "Template{" +
-                "token='" + token + '\'' +
-                ", body='" + body + '\'' +
-                '}';
+        return MoreObjects.toStringHelper(this)
+                .add("token", token)
+                .add("layout", layout)
+                .toString();
     }
 
     public final class Builder {
         private String token;
-        private String body;
+        private String layout;
 
         public Builder withToken(String token) {
             this.token = checkNotNull(token);
             return this;
         }
 
-        public Builder withBody(String body) {
-            this.body = checkNotNull(body);
+        public Builder withLayout(String layout) {
+            this.layout = checkNotNull(layout);
             return this;
         }
 

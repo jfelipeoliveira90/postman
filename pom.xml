@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <diana.version>0.0.2-SNAPSHOT</diana.version>
     </properties>
 
     <dependencies>
@@ -46,12 +47,22 @@
         <dependency>
             <groupId>org.jnosql.diana</groupId>
             <artifactId>cassandra-driver</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>${diana.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jnosql.diana</groupId>
             <artifactId>hbase-driver</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>${diana.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jnosql.diana</groupId>
+            <artifactId>mongodb-driver</artifactId>
+            <version>${diana.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
         </dependency>
 
         <dependency>
@@ -69,6 +80,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

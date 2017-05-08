@@ -1,40 +1,31 @@
 package org.jnosql.diana.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import org.jnosql.diana.api.column.Column;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-@JsonAutoDetect(fieldVisibility = ANY)
 public final class Notification implements Serializable {
     private static final long serialVersionUID = -9186825842872001833L;
 
-    private long id;
-    private String from;
-    private String to;
-    private String subject;
-    private Template template;
-    private Map<String, Object> params;
-
-    Notification() {
-
-    }
+    private final long id;
+    private final String from;
+    private final String to;
+    private final String subject;
+    private final String body;
 
     private Notification(Builder builder) {
         this.id = builder.id;
         this.from = builder.from;
         this.to = builder.to;
         this.subject = builder.subject;
-        this.template = builder.template;
-        this.params = builder.params;
+        this.body = builder.body;
     }
 
     List<Column> toColumn() {
@@ -42,7 +33,7 @@ public final class Notification implements Serializable {
                 Column.of("des_from", from),
                 Column.of("des_to", to),
                 Column.of("des_subject", subject),
-                Column.of("des_body", template.getBody()));
+                Column.of("des_body", body));
     }
 
     @Override
@@ -60,14 +51,13 @@ public final class Notification implements Serializable {
 
     @Override
     public String toString() {
-        return "Notification{" +
-                "id=" + id +
-                ", from='" + from + '\'' +
-                ", to=" + to +
-                ", subject='" + subject + '\'' +
-                ", template=" + template +
-                ", params=" + params +
-                '}';
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("from", from)
+                .add("to", to)
+                .add("subject", subject)
+                .add("body", body)
+                .toString();
     }
 
     public static class Builder {
@@ -75,8 +65,7 @@ public final class Notification implements Serializable {
         private String from;
         private String to;
         private String subject;
-        private Template template;
-        private Map<String, Object> params;
+        private String body;
 
         public Builder withId(Long id) {
             checkArgument(id < 0L);
@@ -99,13 +88,8 @@ public final class Notification implements Serializable {
             return this;
         }
 
-        public Builder withTemplate(Template template) {
-            this.template = checkNotNull(template);
-            return this;
-        }
-
-        public Builder withParams(Map<String, Object> params) {
-            this.params = checkNotNull(params);
+        public Builder withBody(String body) {
+            this.body = checkNotNull(body);
             return this;
         }
 
