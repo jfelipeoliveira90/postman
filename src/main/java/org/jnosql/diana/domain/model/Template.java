@@ -10,10 +10,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public final class Template implements Serializable {
     private static final long serialVersionUID = 4379203439231812358L;
 
+    private final String id;
     private final String token;
     private final String layout;
 
     private Template(Builder builder) {
+        this.id = builder.id;
         this.token = builder.token;
         this.layout = builder.layout;
     }
@@ -38,14 +40,21 @@ public final class Template implements Serializable {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                .add("id", id)
                 .add("token", token)
                 .add("layout", layout)
                 .toString();
     }
 
-    public final class Builder {
+    public static class Builder {
+        private String id;
         private String token;
         private String layout;
+
+        public Builder withId(String id) {
+            this.id = checkNotNull(id);
+            return this;
+        }
 
         public Builder withToken(String token) {
             this.token = checkNotNull(token);

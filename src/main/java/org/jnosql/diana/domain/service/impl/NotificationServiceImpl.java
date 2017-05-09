@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.io.StringWriter;
 import java.util.Optional;
 
+import static org.apache.cassandra.utils.UUIDGen.getTimeUUID;
+
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
@@ -31,6 +33,7 @@ public class NotificationServiceImpl implements NotificationService {
                 .withTo(request.getTo())
                 .withSubject(request.getSubject())
                 .withBody(generateBody(request))
+                .withUUID(getTimeUUID())
                 .build();
 
         notificationRepository.save(notification);

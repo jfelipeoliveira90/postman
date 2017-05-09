@@ -8,8 +8,10 @@ import org.jnosql.diana.api.document.DocumentQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+
+import static java.util.Collections.emptyList;
 
 @Repository
 public class TemplateRepositoryImpl implements TemplateRepository {
@@ -22,11 +24,15 @@ public class TemplateRepositoryImpl implements TemplateRepository {
         DocumentQuery query = DocumentQuery.of("templates")
                 .with(DocumentCondition.eq(Document.of("token", token)));
 
-        manager.singleResult(query)
+        List<Document> documents = manager.singleResult(query)
                 .map(DocumentEntity::getDocuments)
-                .orElse(Collections.emptyList())
-                .forEach(System.out::println);
+                .orElse(emptyList());
 
-        return Optional.empty();
+        return Optional.ofNullable(
+                new Template.Builder()
+                        .withId(documents.get(0).getValue().toString())
+                        .withToken(documents.get(1).getValue().toString())
+                        .withLayout(documents.get(2).getValue().get(String.class))
+                        .build());
     }
 }
