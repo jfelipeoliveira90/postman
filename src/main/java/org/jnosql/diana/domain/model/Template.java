@@ -29,12 +29,12 @@ public final class Template implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Template template = (Template) o;
-        return Objects.equal(token, template.token);
+        return Objects.equal(id, template.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(token);
+        return Objects.hashCode(id);
     }
 
     @Override
