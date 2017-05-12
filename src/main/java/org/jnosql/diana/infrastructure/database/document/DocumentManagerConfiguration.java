@@ -3,6 +3,7 @@ package org.jnosql.diana.infrastructure.database.document;
 import org.jnosql.diana.api.document.DocumentCollectionManager;
 import org.jnosql.diana.api.document.DocumentCollectionManagerFactory;
 import org.jnosql.diana.api.document.DocumentConfiguration;
+import org.jnosql.diana.couchbase.document.CouchbaseDocumentConfiguration;
 import org.jnosql.diana.mongodb.document.MongoDBDocumentConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,7 @@ public class DocumentManagerConfiguration {
 
     @PostConstruct
     public void init() {
-        DocumentConfiguration configuration = new MongoDBDocumentConfiguration();
+        DocumentConfiguration configuration = new CouchbaseDocumentConfiguration();
         managerFactory = configuration.get();
     }
 
@@ -28,7 +29,7 @@ public class DocumentManagerConfiguration {
 
     @Bean
     public DocumentCollectionManager documentCollectionManager() {
-        return managerFactory.get("postman");
+        return managerFactory.get("default");
     }
 
     @PreDestroy

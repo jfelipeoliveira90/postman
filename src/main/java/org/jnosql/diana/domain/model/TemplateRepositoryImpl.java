@@ -24,9 +24,8 @@ public class TemplateRepositoryImpl implements TemplateRepository {
         return manager.singleResult(query)
                 .map(DocumentEntity::getDocuments)
                 .map(documents -> new Template.Builder()
-                        .withId(documents.get(0).getValue().get(String.class))
+                        .withLayout(documents.get(0).getValue().get(String.class))
                         .withToken(documents.get(1).getValue().get(String.class))
-                        .withLayout(documents.get(2).getValue().get(String.class))
                         .build());
     }
 }

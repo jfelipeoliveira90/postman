@@ -51,12 +51,12 @@
         </dependency>
         <dependency>
             <groupId>org.jnosql.diana</groupId>
-            <artifactId>hbase-driver</artifactId>
+            <artifactId>mongodb-driver</artifactId>
             <version>${diana.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jnosql.diana</groupId>
-            <artifactId>mongodb-driver</artifactId>
+            <artifactId>couchbase-driver</artifactId>
             <version>${diana.version}</version>
         </dependency>
         <dependency>
